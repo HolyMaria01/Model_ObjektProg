@@ -5,6 +5,17 @@ abstract class AbstractResistor {
     }
 }
 
+class Resistor extends AbstractResistor {
+    r: number = 0;
+    constructor(r: number) {
+        super();
+        this.r = r;
+    }
+    getResistance(): number {
+        return this.r;
+    }
+}
+
 class Switch extends AbstractResistor {
     on: boolean = false;
     setOn(state: boolean){
@@ -27,11 +38,21 @@ function printResistance(r: AbstractResistor){
     console.log(r.getResistance());
 }
 
+function getTotalResistance(elements: AbstractResistor[]){
+    let totalResistance = 0
+    elements.forEach((element) => {
+        totalResistance += element.getResistance()
+    })
+    console.log(totalResistance)
+}
+
 let r1: Switch = new Switch();
+let r2: AbstractResistor = new Resistor(220);
+let elements = []
+elements.push(r1)
+elements.push(r2)
 r1.setOn(true);
-printResistance(r1);
+getTotalResistance(elements)
+
 r1.setOn(false);
-printResistance(r1);
-console.log(r1.getCurrent(5));
-r1.setOn(true);
-console.log(r1.getCurrent(5));
+getTotalResistance(elements)
